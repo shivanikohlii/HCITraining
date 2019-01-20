@@ -54,32 +54,51 @@
         }
         return Math.round(Math.sqrt(mean(sum)) * 100) / 100;
     }
-    document.write("<p>" + "Mean of Array One :" + mean(arr1) + "</p>")
-    document.write("<p>" + "Mean of Array Two :" + mean(arr2) + "</p>")
-    document.write("<p>" + "Median of Array One :" + median(arr1) + "</p>")
-    document.write("<p>" + "Median of Array Two :" + median(arr2) + "</p>")
-    document.write("<p>" + "Mode of Array One :" + mode(arr1) + "</p>")
-    document.write("<p>" + "Mode of Array Two :" + mode(arr2) + "</p>")
-    document.write("<p>" + "Standard Deviation of Array One :" + standardDeviation(arr1) + "</p>")
-    document.write("<p>" + "Standard Deviation of Array Two :" + standardDeviation(arr2) + "</p>")
-
+    // document.write("<p>" + "Mean of Array One :" + mean(arr1) + "</p>")
+    // document.write("<p>" + "Mean of Array Two :" + mean(arr2) + "</p>")
+    // document.write("<p>" + "Median of Array One :" + median(arr1) + "</p>")
+    // document.write("<p>" + "Median of Array Two :" + median(arr2) + "</p>")
+    // document.write("<p>" + "Mode of Array One :" + mode(arr1) + "</p>")
+    // document.write("<p>" + "Mode of Array Two :" + mode(arr2) + "</p>")
+    // document.write("<p>" + "Standard Deviation of Array One :" + standardDeviation(arr1) + "</p>")
+    // document.write("<p>" + "Standard Deviation of Array Two :" + standardDeviation(arr2) + "</p>")
+    document.write("<table>");
+    document.write("<tr>");
+    document.write("<th>" + "Array" + "</th>");
+    document.write("<th>" + "Mean" + "</th>");
+    document.write("<th>" + "Median" + "</th>");
+    document.write("<th>" + "Mode" + "</th>");
+    document.write("<th>" + "Standard Deviation" + "</th>");
+    document.write("</tr>");
+    document.write("<tr>");
+    document.write("<td>" + "Array 1" + "</td>");
+    document.write("<td>" + mean(arr1) + "</td>");
+    document.write("<td>" + median(arr1) + "</td>");
+    document.write("<td>" + mode(arr1) + "</td>");
+    document.write("<td>" + standardDeviation(arr1) + "</td>");
+    document.write("</tr>");
+    document.write("<tr>");
+    document.write("<td>" + "Array 2" + "</td>");
+    document.write("<td>" + mean(arr2) + "</td>");
+    document.write("<td>" + median(arr2) + "</td>");
+    document.write("<td>" + mode(arr2) + "</td>");
+    document.write("<td>" + standardDeviation(arr2) + "</td>");
+    document.write("</tr>");
 </script>
 <body>
      
     <div id="scatterplot">
-        <!-- <h2 style = "text-align:center">M/F Life Expectancy & Median Income By Country</h2> -->
     </div>
 </body>
 <script>
     //part3
     var xAxis = arr1;
     var yAxis = arr2;
-    var data = [{ x: 1000, y: 0 }];
+    var data = [];
     for (i = 0; i < xAxis.length; i++) {
         data.push({ x: xAxis[i], y: yAxis[i] })
     }
 //part4
-    data = data.filter(value => value.x != 1000)
     var margin = {
         top: 20,
         right: 15,
@@ -98,7 +117,7 @@
     var tooltip = d3.select("body")
         .append("div")
         .style("position", "absolute")
-        .style("z-index", "10")
+        .style("z-index", "20")
         .style("visibility", "hidden")
 
     var chart = d3.select('body')
@@ -145,13 +164,69 @@
         .attr("cx", function (d, i) {
             return x(d.x);
         })
+        .attr("fill", "#FF0000")
         //part 5
         .attr("r", 10)
         .style("opacity", 0.6)
-        .on("mouseover", function (d) { return tooltip.text(d.x + ',' + d.y).style("visibility", "visible"); })
+        .on("mouseover", function (d) { return tooltip.text('('+d.x + ',' + d.y+ ')').style("visibility", "visible"); })
         .on("mousemove", function () {            
 return tooltip.style("top",
                 (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
         })
         .on("mouseout", function () { return tooltip.style("visibility", "hidden"); });
 </script>
+<body>
+<style>
+   * {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.table-container {
+  width: 80%;
+  margin: 30px auto;
+}
+
+table {
+  margin-left: 10;
+  margin-right: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  margin-bottom: 1.45rem;
+  font-size: 1rem;
+  line-height: 1.45rem;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  text-align: left;
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
+  font-feature-settings: "tnum";
+  -moz-font-feature-settings: "tnum";
+  -ms-font-feature-settings: "tnum";
+  -webkit-font-feature-settings: "tnum";
+  padding-left: 0.96667rem;
+  padding-right: 0.96667rem;
+  padding-top: 0.725rem;
+  padding-bottom: calc(0.725rem - 1px);
+}
+th:first-child,
+td:first-child {
+  padding-left: 0;
+}
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+
+/** Optional **/
+tr:last-of-type td {
+  border-bottom: none
+}
+</style>
+</body>
